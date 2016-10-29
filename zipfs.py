@@ -73,12 +73,12 @@ def loglog(num_items, x_items, y_items):
     plt.xlabel('Word rank (log)')
     plt.ylabel('Frequency (log)')
     plt.title('Distribution of words on wikipedia')
-    xs = range(len(x_items))
+    xs = range(1, len(x_items)+1)
     plt.scatter(np.log10(xs), np.log10(y_items), s=100, c='b', alpha=0.5)
     plt.show()
 
 def plotlogs(x_items, y_items, color):
-    xs = range(len(x_items))
+    xs = range(1, len(x_items)+1)
     plt.scatter(np.log10(xs), np.log10(y_items), s=10, c=color, alpha=0.5)
 
 def loglangs(langs_list):
