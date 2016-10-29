@@ -11,17 +11,20 @@ import numpy as np
 import random
 
 def main():
-    wikipedia_language()
+    wikipedia_language(5, "https://en.wikipedia.org/wiki/Bogosort", False)
+    wikipedia_language(84, "https://es.wikipedia.org/wiki/Bogosort", False)
+    wikipedia_language(497, "https://fr.wikipedia.org/wiki/Tri_stupide", False)
+    wikipedia_language(490, "https://de.wikipedia.org/wiki/Bogosort", False)
 
-    #TODO
-    # make loglog graphs
-    # fix wiki crawler to:
-    #   lowercase words
-    #   only visit pages in a target language on wikipedia
+    # TODO
+    # find other ways to display data
+    # figure out if randomlang follows Zipfian Distribution
 
-
-def wikipedia_language():
-    wrangler = WordWrangler(5, "https://en.wikipedia.org/wiki/Bogosort")
+def wikipedia_language(num_pages, start_url, wrangle):
+    wrangler = WordWrangler(num_pages, start_url)
+    if wrangle:
+        wrangler.begin_wrangling()
+        wrangler.save_progress()
     sorted_words = sort_by_frequency(wrangler.words)
     words, frequencies = split_sorted(sorted_words)
     graph_it(10, words, frequencies)
@@ -58,6 +61,19 @@ def graph_it(num_items, x_items, y_items):
     plt.ylabel('Frequencies')
     plt.title('Distribution of words on wikipedia')
     plt.xticks(index + bar_width, x_items[:num_items])
+    plt.show()
+
+def loglog(num_items, x_items, y_items):
+    fig, ax = plt.subplots()
+    index = np.arange(num_items)
+    bar_width = 0.5
+    opacity = 0.4
+
+    plt.xlabel('Word rank (log)')
+    plt.ylabel('Frequency (log)')
+    plt.title('Distribution of words on wikipedia')
+    xs = range(len(x_items))
+    plt.scatter(np.log10(xs), np.log10(y_items), s=100, c='b', alpha=0.5)
     plt.show()
 
 def make_random(v_size, alphabet):

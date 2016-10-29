@@ -225,7 +225,7 @@ class WordWrangler(object):
                 self.words[word] = self.words.get(word, 0) + 1
 
 def main():
-    ww = WordWrangler(5, "https://en.wikipedia.org/wiki/Bogosort")
+    ww = WordWrangler(500, "https://en.wikipedia.org/wiki/Bogosort")
     ww.begin_wrangling()
     ww.save_progress()
 
